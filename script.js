@@ -88,11 +88,17 @@ function startEditingTask(editBtn) {
 
     const editInput = document.createElement("input");
     editInput.classList.add("edit-input");
+    editInput.dataset.originalText = taskTextSpan.textContent;
     editInput.value = taskTextSpan.textContent;
 
     taskTextSpan.replaceWith(editInput);
 
     editInput.focus();
+    editInput.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            cancelEditingTask(editInput);
+        }
+    });
 }
 
 function saveEditedTask(saveBtn) {
@@ -109,4 +115,17 @@ function saveEditedTask(saveBtn) {
     span.textContent = taskText;
     editInput.replaceWith(span);
     saveBtn.textContent = "Edit";
+}
+
+function cancelEditingTask(editInput) {
+    const taskItem = editInput.parentElement;
+    const editBtn = taskItem.querySelector(".edit-btn");
+
+    const span = document.createElement("span");
+    span.classList.add("task-text");
+    span.textContent = editInput.dataset.originalText;
+
+    editInput.replaceWith(span);
+
+    editBtn.textContent = "Edit";
 }
