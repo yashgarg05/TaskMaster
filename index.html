@@ -1,31 +1,374 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="TaskMaster - A simple and beautiful task management application"
+    >
+
     <title>TaskMaster</title>
+
     <link rel="stylesheet" href="style.css">
 
 </head>
+
+
 <body>
-    <header>
-        <h1>TaskMaster</h1>
-    </header>
 
-    <main>
-        <form id="task-input-form">
-            <input id="task-input" type="text" placeholder="Describe your task" value="" required>
-            <input type="submit" value="Add Task" id="add-task-btn">
-        </form>
+    <!-- =========================
+         Application
+    ========================== -->
 
-        <h3>Task List :</h3>
-        <ul id="task-list">
-            
-        </ul>
-    </main>
+    <div class="app">
+
+
+        <!-- =========================
+             Sidebar
+        ========================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- Logo -->
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    ✓
+                </div>
+
+                <span>
+                    TaskMaster
+                </span>
+
+            </div>
+
+
+            <!-- Workspace -->
+
+            <div class="sidebar-section">
+
+                <p class="sidebar-title">
+                    Workspace
+                </p>
+
+
+                <button
+                    type="button"
+                    class="sidebar-item active"
+                    id="all-filter"
+                >
+
+                    <span>▦</span>
+
+                    <span>
+                        All Tasks
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="sidebar-item"
+                    id="active-filter"
+                >
+
+                    <span>○</span>
+
+                    <span>
+                        Active
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="sidebar-item"
+                    id="completed-filter"
+                >
+
+                    <span>✓</span>
+
+                    <span>
+                        Completed
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- Lists -->
+
+            <div class="sidebar-section">
+
+                <p class="sidebar-title">
+                    Lists
+                </p>
+
+
+                <button
+                    type="button"
+                    class="new-list-btn"
+                >
+
+                    <span>+</span>
+
+                    <span>
+                        New List
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- Sidebar Footer -->
+
+            <div class="sidebar-bottom">
+
+                <p>
+                    TaskMaster
+                </p>
+
+                <span>
+                    v1.0
+                </span>
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- =========================
+             Main Content
+        ========================== -->
+
+        <main class="main-content">
+
+
+            <!-- Header -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <p class="page-label">
+                        Workspace
+                    </p>
+
+                    <h1>
+                        My Tasks
+                    </h1>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="add-task-btn"
+                    class="primary-btn"
+                    aria-label="Add a new task"
+                >
+
+                    <span>
+                        +
+                    </span>
+
+                    Add Task
+
+                </button>
+
+            </header>
+
+
+
+            <!-- =========================
+                 Add Task Form
+            ========================== -->
+
+            <form
+                id="task-input-form"
+                class="add-task-form"
+            >
+
+                <input
+                    id="task-input"
+                    type="text"
+                    placeholder="What needs to be done?"
+                    autocomplete="off"
+                    maxlength="200"
+                    aria-label="New task"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                >
+                    Add Task
+                </button>
+
+            </form>
+
+
+
+            <!-- =========================
+                 Search
+            ========================== -->
+
+            <div class="search-container">
+
+                <span
+                    class="search-icon"
+                    aria-hidden="true"
+                >
+                    ⌕
+                </span>
+
+
+                <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Search tasks..."
+                    autocomplete="off"
+                    aria-label="Search tasks"
+                >
+
+
+                <span
+                    class="search-shortcut"
+                    aria-hidden="true"
+                >
+                    ⌘ K
+                </span>
+
+            </div>
+
+
+
+            <!-- =========================
+                 Statistics
+            ========================== -->
+
+            <section
+                id="task-stats"
+                class="task-stats"
+                aria-label="Task statistics"
+            >
+
+
+                <div class="stat">
+
+                    <span class="stat-label">
+                        Total
+                    </span>
+
+                    <strong id="total-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span class="stat-label">
+                        Active
+                    </span>
+
+                    <strong id="active-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <span class="stat-label">
+                        Completed
+                    </span>
+
+                    <strong id="completed-count">
+                        0
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 Tasks
+            ========================== -->
+
+            <section
+                class="tasks-section"
+                aria-labelledby="tasks-heading"
+            >
+
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2 id="tasks-heading">
+                            Tasks
+                        </h2>
+
+                        <p>
+                            Your current tasks
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Tasks are inserted here by JavaScript -->
+
+                <ul
+                    id="task-list"
+                    aria-live="polite"
+                >
+                </ul>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- =========================
+         Footer
+    ========================== -->
+
     <footer>
-        <p>Made by Yash</p>
+        Made by Yash
     </footer>
+
+
+
+    <!-- JavaScript -->
+
     <script src="script.js"></script>
+
 </body>
+
 </html>
