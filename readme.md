@@ -13,8 +13,7 @@ TaskMaster is a simple and efficient to-do list application designed to help use
 To install TaskMaster, follow these steps:
 1. Clone the repository from GitHub.
 2. Navigate to the project directory.
-3. Run "npm install" to install the necessary dependencies.
-4. Start the application using "npm run dev".
+3. Click on go live.
 
 ### Usage
 Once the application is running, users can:
